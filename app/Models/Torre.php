@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Torre extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nombre',
+        'latitud',
+        'longitud',
+        'comentarios'
+    ];
+
+    public function dispositivos()
+    {
+        return $this->hasMany(Dispositivo::class);
+    }
 }
