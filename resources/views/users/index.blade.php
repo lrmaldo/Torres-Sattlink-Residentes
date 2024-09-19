@@ -3,6 +3,7 @@
 @section('content')
  {{-- vue --}}
     <div id="app">
-        <div>hola mundo</div>
+        {{-- component vue --}}
+        <users-index/>
     </div>
 @endsection

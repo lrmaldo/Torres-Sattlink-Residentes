@@ -5,7 +5,9 @@
  */
 
 require('./bootstrap');
-
+// main.js o app.js
+import 'bootstrap/dist/css/bootstrap.min.css'; // Estilos de Bootstrap
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 window.Vue = require('vue').default;
 
 
@@ -21,7 +23,7 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('user-component', require('./components/UserComponent.vue').default);
+Vue.component('users-index', require('./components/UserComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
