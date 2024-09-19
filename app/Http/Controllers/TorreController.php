@@ -15,7 +15,7 @@ class TorreController extends Controller
      */
     public function index()
     {
-        //
+       return view('torres.index');
     }
 
     /**
