@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TorreController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +28,8 @@ Route::middleware(['auth'])->group(function () {
         return view('users.index');
     });
     /* ruta de edit user */
-    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-    /* ruta update */
-    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+   Route::resource('users', UserController::class);
+   Route::resource('torres',TorreController::class);
 });
 
 

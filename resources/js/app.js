@@ -6,10 +6,10 @@
 
 require('./bootstrap');
 // main.js o app.js
-import 'bootstrap/dist/css/bootstrap.min.css'; // Estilos de Bootstrap
-import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 window.Vue = require('vue').default;
 
+Vue.config.productionTip = false;
 
 /**
  * The following block of code may be used to automatically register your
