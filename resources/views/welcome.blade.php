@@ -54,13 +54,12 @@
         <nav>
             <ul>
                 <li><a href="#">Inicio</a></li>
-                <li><a href="#">Acerca de</a></li>
                 <li><a href="#">Servicios</a></li>
                 <li><a href="#">Contacto</a></li>
                 {{-- login --}}
                 @if (Route::has('login'))
                     @auth
-                        <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
+                        <li><a href="{{ url('/home') }}">Home</a></li>
                     @else
                         <li><a href="{{ route('login') }}">Login</a></li>
                         @if (Route::has('register'))
@@ -73,12 +72,31 @@
     </header>
 
     <main>
-        <h1></h1>
+        <h1>
+            <style>
+                body {
+                    margin: 0;
+                    padding: 0;
+                    height: 100vh; /* Altura completa de la ventana */
+                    background-image: url('https://rentadeplantas.com.mx/wp-content/uploads/2020/11/torre-telecomunicacion-00.jpg'); /* URL de la imagen */
+                    background-size: cover; /* Ajusta la imagen al tamaño de la ventana */
+                    background-position: center; /* Centra la imagen */
+                    background-repeat: no-repeat; /* Evita que la imagen se repita */
+                }
+                h1 {
+                    color: white; /* Color del texto */
+                    text-align: center;
+                    margin-top: 20%; /* Espaciado desde la parte superior */
+                }
+            </style>
+        </head>
+        <body>
+        </h1>
         <p></p>
     </main>
 
     <footer>
-        <p>&copy; 1997-2024 Derechos Reservados Sattlink.</p>
+        <p>&copy; 1997 - {{date('Y')}} Derechos Reservados Sattlink.</p>
     </footer>
 </body>
 </html>
