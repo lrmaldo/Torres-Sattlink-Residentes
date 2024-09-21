@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 // main.js o app.js
+import bootstrap from 'bootstrap';
 
 window.Vue = require('vue').default;
 
@@ -34,3 +35,4 @@ Vue.component('users-index', require('./components/UserComponent.vue').default);
 const app = new Vue({
     el: '#app',
 });
+console.log('Vue is running!');

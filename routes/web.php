@@ -24,9 +24,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 /* auth  */
 Route::middleware(['auth'])->group(function () {
-    Route::get('/users', function () {
-        return view('users.index');
-    });
+
     /* ruta de edit user */
    Route::resource('users', UserController::class);
    Route::resource('torres',TorreController::class);

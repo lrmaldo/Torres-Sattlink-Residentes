@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -38,7 +40,21 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->validate([
+           'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'confirmed'],
+        ])){
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+            return response()->json(['message' => 'User created successfully'], 200);
+        }
+        /* enviar los errores de validacion */
+        return Response::json(['errors' => $validator->errors()], 422);
+
     }
 
     /**
@@ -77,7 +93,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if($request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+        ])){
+            $user = User::find($id);
+            $user->name = $request->name;
+            $user->email = $request->email;
+            if($request->password){
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
+            return response()->json(['message' => 'User updated successfully'], 200);
+        }
+        /* enviar los errores de validacion */
+        return Response::json(['errors' => $validator->errors()], 422);
     }
 
     /**
@@ -88,6 +118,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        /* db delete from users where id = $id */
+        $user = User::find($id);
+        $user->delete();
+        return response()->json(['message' => 'User deleted successfully'], 200);
+    }
+
+    public function apiIndex()
+    {
+        $users = User::all();
+        return response()->json($users);
     }
 }
