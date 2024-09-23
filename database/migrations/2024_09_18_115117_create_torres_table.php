@@ -19,6 +19,7 @@ class CreateTorresTable extends Migration
             $table->string('longitud')->nullable();
             $table->string('latitud')->nullable();
             $table->text('comentarios')->nullable();
+            $table->boolean('estado')->default(1);
             $table->timestamps();
         });
     }

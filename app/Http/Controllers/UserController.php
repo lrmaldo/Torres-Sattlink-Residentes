@@ -129,4 +129,11 @@ class UserController extends Controller
         $users = User::all();
         return response()->json($users);
     }
+    public function apiSearch($search)
+    {
+        $users = DB::table('users')
+            ->where('name', 'like', '%'.$search.'%')
+            ->get();
+        return response()->json($users);
+    }
 }

@@ -27,6 +27,7 @@ Route::middleware(['auth'])->group(function () {
 
     /* ruta de edit user */
    Route::resource('users', UserController::class);
+
    Route::resource('torres',TorreController::class);
 });
 

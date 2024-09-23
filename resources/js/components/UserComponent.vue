@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container bg-white">
         <h1 class="display-4 mb-4">Usuarios</h1>
 
         <!-- Botón para abrir modal de agregar usuario -->
@@ -7,37 +7,59 @@
             Agregar Usuario
         </button>
 
-        <!-- Tabla de usuarios -->
-        <div class="table-responsive mb-4">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="user in users" :key="user.id">
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            <button
-                                @click="openEditModal(user)"
-                                class="btn btn-sm btn-outline-primary me-2"
-                            >
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button
-                                @click="deleteUser(user.id)"
-                                class="btn btn-sm btn-outline-danger"
-                            >
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- buscador  -->
+        <div class="input-group mb-4 bg-white">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Buscar usuario"
+                v-model="search"
+                @keyup="searchUser"
+            />
+            <button
+                class="btn btn-outline-secondary"
+                type="button"
+                @click="searchUser"
+            >
+                <i class="bi bi-search"></i>
+            </button>
+        </div>
+        <!-- card donde va a ir la table -->
+        <div class="card bg-white ">
+            <div class="card-body">
+                <!-- Tabla de usuarios -->
+                <div class="table-responsive mb-4">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark" >
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="user in users" :key="user.id">
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    <button
+                                        @click="openEditModal(user)"
+                                        class="btn btn-sm btn-outline-primary me-2"
+                                    >
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button
+                                        @click="deleteUser(user.id)"
+                                        class="btn btn-sm btn-outline-danger"
+                                    >
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Modal para agregar/editar usuario -->
@@ -79,7 +101,7 @@
                                     id="name"
                                     type="text"
                                     class="form-control"
-                                    required
+
                                 />
                             </div>
                             <div class="mb-3">
@@ -91,7 +113,7 @@
                                     id="email"
                                     type="email"
                                     class="form-control"
-                                    required
+
                                 />
                             </div>
                             <!-- contraseña -->
@@ -104,7 +126,6 @@
                                     id="password"
                                     type="password"
                                     class="form-control"
-
                                 />
                                 <span
                                     v-if="
@@ -127,7 +148,6 @@
                                     id="password_confirmation"
                                     type="password"
                                     class="form-control validate"
-
                                 />
                                 <span
                                     v-if="
@@ -145,7 +165,6 @@
                                     v-model="currentUser.role"
                                     id="role"
                                     class="form-select"
-
                                 >
                                     <option value="User">Usuario</option>
                                     <option value="Admin">Administrador</option>
@@ -226,13 +245,10 @@ export default {
             document.getElementById("error").innerText = "";
             document.getElementById("email").classList.remove("is-invalid");
             document.getElementById("name").classList.remove("is-invalid");
-            document
-                .getElementById("password_confirmation")
-                .classList.remove("is-invalid");
-            document
-                .getElementById("password_confirmation")
-                .classList.remove("is-invalid");
             document.getElementById("password").classList.remove("is-invalid");
+            document
+                .getElementById("password_confirmation")
+                .classList.remove("is-invalid");
             this.showModal();
         },
         openEditModal(user) {
@@ -263,7 +279,6 @@ export default {
             axios
                 .post("/users", this.currentUser)
                 .then((response) => {
-
                     this.getUsers();
 
                     this.resetForm();
@@ -271,6 +286,63 @@ export default {
                 .catch((error) => {
                     console.error(error);
 
+                    if (error.response.data.errors) {
+                        const errors = error.response.data.errors;
+                        if (errors.email) {
+                            document.getElementById("error").innerText =
+                                errors.email[0];
+                            document
+                                .getElementById("email")
+                                .classList.add("is-invalid");
+                        }
+                        if (errors.password) {
+                            document.getElementById("error").innerText =
+                                errors.password[0];
+                            document
+                                .getElementById("password")
+                                .classList.add("is-invalid");
+                        }
+                        if (errors.name) {
+                            document.getElementById("error").innerText =
+                                errors.name[0];
+                            document
+                                .getElementById("name")
+                                .classList.add("is-invalid");
+                        }
+                    }
+                })
+                .finally(() => {
+                    this.isLoading = false; // Ocultar spinner al finalizar la solicitud
+                    /* cerrar el modal */
+                    /* actualizar la tabla de users */
+                    this.getUsers();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Usuario agregado",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                });
+        },
+        updateUser() {
+            // lógica para actualizar usuario
+            this.isLoading = true; // Mostrar spinner al iniciar la solicitud
+            axios
+                .put(`/users/${this.currentUser.id}`, this.currentUser)
+                .then(() => {
+                    this.getUsers();
+                    this.resetForm();
+                    Swal.fire({
+                        icon: "success",
+                        title: "Usuario actualizado",
+                        showConfirmButton: false,
+                        timer: 1500,
+                        timerProgressBar: true,
+                    });
+
+                })
+                .catch((error) => {
+                    console.error(error);
                     /*
 {message: "The given data was invalid.", errors: {email: ["The email has already been taken."]}}
 errors
@@ -284,80 +356,29 @@ message
                         if (errors.email) {
                             document.getElementById("error").innerText =
                                 errors.email[0];
-                            document.getElementById("email").classList.add(
-                                "is-invalid"
-                            );
+                            document
+                                .getElementById("email")
+                                .classList.add("is-invalid");
                         }
                         if (errors.password) {
                             document.getElementById("error").innerText =
                                 errors.password[0];
-                            document.getElementById("password").classList.add(
-                                "is-invalid"
-                            );
+                            document
+                                .getElementById("password")
+                                .classList.add("is-invalid");
                         }
                         if (errors.name) {
                             document.getElementById("error").innerText =
                                 errors.name[0];
-                            document.getElementById("name").classList.add(
-                                "is-invalid"
-                            );
+                            document
+                                .getElementById("name")
+                                .classList.add("is-invalid");
                         }
                     }
                 })
                 .finally(() => {
                     this.isLoading = false; // Ocultar spinner al finalizar la solicitud
-                    /* cerrar el modal */
-                    /* actualizar la tabla de users */
-                    this.getUsers();
-                });
-        },
-        updateUser() {
-            // lógica para actualizar usuario
-            this.isLoading = true; // Mostrar spinner al iniciar la solicitud
-            axios
-                .put(`/users/${this.currentUser.id}`, this.currentUser)
-                .then(() => {
-                    this.getUsers();
-                    this.resetForm();
-                })
-                .catch((error) => {
-                    console.error(error);
-                     /*
-{message: "The given data was invalid.", errors: {email: ["The email has already been taken."]}}
-errors
-:
-{email: ["The email has already been taken."]}
-message
-:
-"The given data was invalid." */
-                    if (error.response.data.errors) {
-                        const errors = error.response.data.errors;
-                        if (errors.email) {
-                            document.getElementById("error").innerText =
-                                errors.email[0];
-                            document.getElementById("email").classList.add(
-                                "is-invalid"
-                            );
-                        }
-                        if (errors.password) {
-                            document.getElementById("error").innerText =
-                                errors.password[0];
-                            document.getElementById("password").classList.add(
-                                "is-invalid"
-                            );
-                        }
-                        if (errors.name) {
-                            document.getElementById("error").innerText =
-                                errors.name[0];
-                            document.getElementById("name").classList.add(
-                                "is-invalid"
-                            );
-                        }
-                    }
 
-                })
-                .finally(() => {
-                    this.isLoading = false; // Ocultar spinner al finalizar la solicitud
                 });
         },
         deleteUser(id) {
@@ -392,7 +413,7 @@ message
                         title: "Usuario eliminado",
                         showConfirmButton: false,
                         timer: 1500,
-                    })
+                    });
                 }
             });
         },
@@ -407,6 +428,18 @@ message
 
             const modal = Modal.getInstance(this.$refs.userModal);
             modal.hide();
+        },
+        searchUser() {
+            /* buscar en el obtjeto de users sin hacer peticion a la bd */
+            if (!this.search) {
+                this.getUsers();
+                return;
+            }
+            this.users = this.users.filter((user) => {
+                return user.name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
         },
     },
 };

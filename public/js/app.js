@@ -5315,6 +5315,25 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5353,9 +5372,8 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       document.getElementById("error").innerText = "";
       document.getElementById("email").classList.remove("is-invalid");
       document.getElementById("name").classList.remove("is-invalid");
-      document.getElementById("password_confirmation").classList.remove("is-invalid");
-      document.getElementById("password_confirmation").classList.remove("is-invalid");
       document.getElementById("password").classList.remove("is-invalid");
+      document.getElementById("password_confirmation").classList.remove("is-invalid");
       this.showModal();
     },
     openEditModal: function openEditModal(user) {
@@ -5384,15 +5402,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         _this2.resetForm();
       })["catch"](function (error) {
         console.error(error);
-
-        /*
-        {message: "The given data was invalid.", errors: {email: ["The email has already been taken."]}}
-        errors
-        :
-        {email: ["The email has already been taken."]}
-        message
-        :
-        "The given data was invalid." */
         if (error.response.data.errors) {
           var errors = error.response.data.errors;
           if (errors.email) {
@@ -5413,6 +5422,12 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
         /* cerrar el modal */
         /* actualizar la tabla de users */
         _this2.getUsers();
+        sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          icon: "success",
+          title: "Usuario agregado",
+          showConfirmButton: false,
+          timer: 1500
+        });
       });
     },
     updateUser: function updateUser() {
@@ -5422,6 +5437,13 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       axios.put("/users/".concat(this.currentUser.id), this.currentUser).then(function () {
         _this3.getUsers();
         _this3.resetForm();
+        sweetalert2_dist_sweetalert2_js__WEBPACK_IMPORTED_MODULE_1___default().fire({
+          icon: "success",
+          title: "Usuario actualizado",
+          showConfirmButton: false,
+          timer: 1500,
+          timerProgressBar: true
+        });
       })["catch"](function (error) {
         console.error(error);
         /*
@@ -5498,6 +5520,17 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
       document.getElementById("name").classList.remove("is-invalid");
       var modal = bootstrap__WEBPACK_IMPORTED_MODULE_0__.Modal.getInstance(this.$refs.userModal);
       modal.hide();
+    },
+    searchUser: function searchUser() {
+      var _this5 = this;
+      /* buscar en el obtjeto de users sin hacer peticion a la bd */
+      if (!this.search) {
+        this.getUsers();
+        return;
+      }
+      this.users = this.users.filter(function (user) {
+        return user.name.toLowerCase().includes(_this5.search.toLowerCase());
+      });
     }
   }
 });
@@ -32219,7 +32252,7 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", { staticClass: "container bg-white" }, [
     _c("h1", { staticClass: "display-4 mb-4" }, [_vm._v("Usuarios")]),
     _vm._v(" "),
     _c(
@@ -32228,49 +32261,88 @@ var render = function () {
       [_vm._v("\n        Agregar Usuario\n    ")]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "table-responsive mb-4" }, [
-      _c("table", { staticClass: "table table-hover" }, [
-        _vm._m(0),
-        _vm._v(" "),
-        _c(
-          "tbody",
-          _vm._l(_vm.users, function (user) {
-            return _c("tr", { key: user.id }, [
-              _c("td", [_vm._v(_vm._s(user.name))]),
-              _vm._v(" "),
-              _c("td", [_vm._v(_vm._s(user.email))]),
-              _vm._v(" "),
-              _c("td", [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-sm btn-outline-primary me-2",
-                    on: {
-                      click: function ($event) {
-                        return _vm.openEditModal(user)
+    _c("div", { staticClass: "input-group mb-4 bg-white" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.search,
+            expression: "search",
+          },
+        ],
+        staticClass: "form-control",
+        attrs: { type: "text", placeholder: "Buscar usuario" },
+        domProps: { value: _vm.search },
+        on: {
+          keyup: _vm.searchUser,
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.search = $event.target.value
+          },
+        },
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-outline-secondary",
+          attrs: { type: "button" },
+          on: { click: _vm.searchUser },
+        },
+        [_c("i", { staticClass: "bi bi-search" })]
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "card bg-white" }, [
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "table-responsive mb-4" }, [
+          _c("table", { staticClass: "table table-striped table-hover" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "tbody",
+              _vm._l(_vm.users, function (user) {
+                return _c("tr", { key: user.id }, [
+                  _c("td", [_vm._v(_vm._s(user.name))]),
+                  _vm._v(" "),
+                  _c("td", [_vm._v(_vm._s(user.email))]),
+                  _vm._v(" "),
+                  _c("td", [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-outline-primary me-2",
+                        on: {
+                          click: function ($event) {
+                            return _vm.openEditModal(user)
+                          },
+                        },
                       },
-                    },
-                  },
-                  [_c("i", { staticClass: "bi bi-pencil" })]
-                ),
-                _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-sm btn-outline-danger",
-                    on: {
-                      click: function ($event) {
-                        return _vm.deleteUser(user.id)
+                      [_c("i", { staticClass: "bi bi-pencil" })]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-sm btn-outline-danger",
+                        on: {
+                          click: function ($event) {
+                            return _vm.deleteUser(user.id)
+                          },
+                        },
                       },
-                    },
-                  },
-                  [_c("i", { staticClass: "bi bi-trash" })]
-                ),
-              ]),
-            ])
-          }),
-          0
-        ),
+                      [_c("i", { staticClass: "bi bi-trash" })]
+                    ),
+                  ]),
+                ])
+              }),
+              0
+            ),
+          ]),
+        ]),
       ]),
     ]),
     _vm._v(" "),
@@ -32343,7 +32415,7 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { id: "name", type: "text", required: "" },
+                      attrs: { id: "name", type: "text" },
                       domProps: { value: _vm.currentUser.name },
                       on: {
                         input: function ($event) {
@@ -32373,7 +32445,7 @@ var render = function () {
                         },
                       ],
                       staticClass: "form-control",
-                      attrs: { id: "email", type: "email", required: "" },
+                      attrs: { id: "email", type: "email" },
                       domProps: { value: _vm.currentUser.email },
                       on: {
                         input: function ($event) {
@@ -32595,7 +32667,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("thead", [
+    return _c("thead", { staticClass: "table-dark" }, [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nombre")]),
         _vm._v(" "),
