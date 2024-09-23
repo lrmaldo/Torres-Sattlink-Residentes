@@ -13,7 +13,7 @@ class StoreTorreRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,23 @@ class StoreTorreRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nombre' => ['required', 'string', 'max:255'],
+            'latitud' => ['required', 'string', 'max:255'],
+            'longitud' => ['required', 'string', 'max:255'],
+            'comentarios' => ['required', 'string', 'max:255'],
+            'estado' => ['required', 'integer'],
+        ];
+
+    }
+
+    public function messages()
+    {
+        return [
+            'nombre.required' => 'El nombre es requerido',
+            'latitud.required' => 'La latitud es requerida',
+            'longitud.required' => 'La longitud es requerida',
+            'comentarios.required' => 'Los comentarios son requeridos',
+            'estado.required' => 'El estado es requerido',
         ];
     }
 }

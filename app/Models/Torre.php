@@ -13,7 +13,8 @@ class Torre extends Model
         'nombre',
         'latitud',
         'longitud',
-        'comentarios'
+        'comentarios',
+        'estado'
     ];
 
     public function dispositivos()

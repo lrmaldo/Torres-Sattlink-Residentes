@@ -15,7 +15,16 @@ class TorreController extends Controller
      */
     public function index()
     {
-       return view('torres.index');
+       $totalTorres = Torre::all()->count();
+       $torresActivos = Torre::where('estado',1)->count();
+       //db select y count select count(*) from torres where estado = 1
+       //
+       /* torresAlertas */
+         $torresMantenimiento = Torre::where('estado',2)->count();
+         $torresInactivos = Torre::where('estado',0)->count();
+
+
+       return view('torres.index',compact('totalTorres','torresActivos','torresMantenimiento','torresInactivos'));
     }
 
     /**
@@ -25,7 +34,7 @@ class TorreController extends Controller
      */
     public function create()
     {
-        //
+        return view('torres.create');
     }
 
     /**
@@ -36,7 +45,14 @@ class TorreController extends Controller
      */
     public function store(StoreTorreRequest $request)
     {
-        //
+        $torre = new Torre();
+        $torre->nombre = $request->nombre;
+        $torre->latitud = $request->latitud;
+        $torre->longitud = $request->longitud;
+        $torre->comentarios = $request->comentarios;
+        $torre->estado = $request->estado;
+        $torre->save();
+        return redirect()->route('torres.index')->with('success','Torre creada correctamente');
     }
 
     /**
