@@ -31,6 +31,13 @@
         </div>
 
         <h2>Lista de Torres</h2>
+    
+    <div class="container mt-2">       
+        <button type="button" class="btn btn-info" id="addTowerBtn">
+            <i class="bi bi-plus-circle-fill me-2"></i>
+                Agregar Torre
+        </button>
+
         <div class="table-responsive">
             <table class="table table-striped table-sm">
                 <thead>
