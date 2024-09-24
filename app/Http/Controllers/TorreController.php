@@ -88,6 +88,14 @@ class TorreController extends Controller
     public function update(UpdateTorreRequest $request, Torre $torre)
     {
         //
+       
+        $torre->nombre = $request->nombre;
+        $torre->latitud = $request->latitud;
+        $torre->longitud = $request->longitud;
+        $torre->comentarios = $request->comentarios;
+        $torre->estado = $request->estado;
+        $torre->save();
+        return redirect()->route('torres.index')->with('success','Torre Actualizada Correctamente');
     }
 
     /**
