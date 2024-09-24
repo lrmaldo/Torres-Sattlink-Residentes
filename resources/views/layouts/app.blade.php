@@ -16,6 +16,46 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+
+    {{-- datatables fuentes --}}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css">
+    {{-- js --}}
+
+    {{-- jquery 3.7.1 --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    {{-- js datatables  2.1.7 --}}
+    <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
+
+    <style>
+        /* bagde */
+        .badge {
+            font-size: 0.8em;
+            padding: 0.5em 0.7em;
+            border-radius: 0.35em;
+        }
+        /* badge badge-success */
+        .badge-success {
+            background-color: #d1e7dd;
+            color: #0f5132;
+        }
+        /* badge badge-danger */
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #842029;
+        }
+        /* badge badge-warning */
+        .badge-warning {
+            background-color: #fff3cd;
+            color: #664d03;
+        }
+        /* badge badge-primary */
+        .badge-primary {
+            background-color: #cfe2ff;
+            color: #084298;
+        }
+
+    </style>
+
 </head>
 
 <body>

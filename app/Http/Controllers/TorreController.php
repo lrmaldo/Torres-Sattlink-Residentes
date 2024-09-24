@@ -100,4 +100,39 @@ class TorreController extends Controller
     {
         //
     }
+
+    public function obtenerTorres(){
+        $torres = Torre::all();
+        return datatables()->of($torres)
+        ->addColumn('ultima_revision',function($torre){
+            return $torre->updated_at->diffForHumans();
+        })
+        /* acciones columna */
+        ->addColumn('acciones',function($torre){
+            /* btn dispositivos */
+            $btns = '<a href="'.route('torres.show',$torre->id).'" class="btn btn-primary btn-sm mx-1">Dispositivos</a>';
+
+
+
+            $btns .= '<a href="'.route('torres.edit',$torre->id).'" class="btn btn-primary btn-sm mx-1">Editar</a>';
+            $btns .= '<a href="javascript:void(0)" onclick="eliminarTorre('.$torre->id.')" class="btn btn-danger btn-sm mx-1">Eliminar</a>';
+            return $btns;
+        })
+        /* ubicacion columna */
+        ->addColumn('ubicacion',function($torre){
+            return '<a href="https://www.google.com/maps?q='.$torre->latitud.','.$torre->longitud.'" target="_blank">Ver ubicacion</a>';
+        })
+        /* editar columna estado */
+        ->editColumn('estado',function($torre){
+            if($torre->estado == 1){
+                return '<span class="badge badge-success">Activo</span>';
+            }elseif($torre->estado == 2){
+                return '<span class="badge badge-warning">Mantenimiento</span>';
+            }else{
+                return '<span class="badge badge-danger">Inactivo</span>';
+            }
+        })
+        ->rawColumns(['acciones','ubicacion','estado'])
+        ->toJson();
+    }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\MapaController;
 use App\Http\Controllers\TorreController;
 use App\Http\Controllers\UserController;
+use App\Models\Torre;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
 
    Route::resource('torres',TorreController::class);
    Route::get('mapa', [MapaController::class, 'index']);
+   Route::get('torres-data',[TorreController::class,'obtenerTorres'])->name('torres.data');
 });
 
 
