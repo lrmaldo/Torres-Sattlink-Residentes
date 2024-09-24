@@ -4,27 +4,35 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="row">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-3">
                 <div class="card text-white bg-primary">
                     <div class="card-body">
                         <h5 class="card-title">Total de Torres</h5>
-                        <p class="card-text display-4">150</p>
+                        <p class="card-text display-4">{{$totalTorres}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-3">
                 <div class="card text-white bg-success">
                     <div class="card-body">
                         <h5 class="card-title">Torres Activas</h5>
-                        <p class="card-text display-4">142</p>
+                        <p class="card-text display-4">{{$torresActivos}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-3 mb-3">
                 <div class="card text-white bg-warning">
                     <div class="card-body">
-                        <h5 class="card-title">Alertas</h5>
-                        <p class="card-text display-4">3</p>
+                        <h5 class="card-title">Mantenimiento</h5>
+                        <p class="card-text display-4">{{$torresMantenimiento}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="card text-white bg-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">Torres Inactivas</h5>
+                        <p class="card-text display-4">{{$torresInactivos}}</p>
                     </div>
                 </div>
             </div>
