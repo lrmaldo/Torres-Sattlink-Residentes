@@ -7,6 +7,11 @@ use App\Models\Torre;
 
 class MapaController extends Controller
 {
+
+    public function index()
+    {
+        return view('mapa.index');
+    }
     //function  obtenerTorresYDispositivos(){
 
      public function obtenerTorresYDispositivos(){
