@@ -74,8 +74,8 @@ class TorreController extends Controller
      */
     public function edit(Torre $torre)
     {
-        $torre = Torre::find($id);
-        return view('torre.edit', compact('torre'));
+       /*  $torre = Torre::find($id); */
+        return view('torres.edit', compact('torre'));
     }
 
     /**

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="mb-4">Agregar Torre</h1>
+    <h1 class="mb-4">Editar Torre</h1>
     <form action="{{ route('torres.update', $torre->id)}}">
         @csrf
         @method("POST")
@@ -23,18 +23,19 @@
         </div>
         <div class="mb-3">
             <label for="comentarios" class="form-label">Comentarios</label>
-            <textarea class="form-control" id="comentarios" name="comentarios" rows="3">
-                {{ old('comentarios', $torre->comentarios) }}
+            <textarea class="form-control" id="comentarios" name="comentarios" rows="3">{{ old('comentarios', $torre->comentarios) }}
             </textarea>
             <span class="text-danger">{{ $errors->first('comentarios')}}</span>
         </div>
         <div class="mb-3">
             <label for="estado" class="form-label">Estado</label>
             <select class="form-select" id="estado" name="estado">
-                <option value="">Seleccione un estado</option>
-                <option value="1">Activa</option>
-                <option value="0">Inactiva</option>
-                <option value="2">En mantenimiento</option>
+
+                <option value="" disabled>Seleccione un estado</option>
+                <option value="1" {{$torre->estatus==1 ?? 'selected'}}>Activa</option>
+                <option value="0" {{$torre->estatus==0 ?? 'selected'}}>Inactiva</option>
+                <option value="2" {{$torre->estatus==2 ?? 'selected'}}>Mantenimiento</option>
+
             </select>
             <span class="text-danger">{{ $errors->first('estado') }}</span>
         </div>
