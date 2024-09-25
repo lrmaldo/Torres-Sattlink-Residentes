@@ -25,6 +25,8 @@
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     {{-- js datatables  2.1.7 --}}
     <script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
+    <!-- importart el sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <style>
         /* bagde */
