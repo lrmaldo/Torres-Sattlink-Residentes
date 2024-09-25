@@ -3,9 +3,9 @@
 @section('content')
 <div class="container mt-5">
     <h1 class="mb-4">Editar Torre</h1>
-    <form action="{{ route('torres.update', $torre->id)}}">
+    <form action="{{ route('torres.update', $torre->id)}}" method="POST">
         @csrf
-        @method("POST")
+        @method("PUT")
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" class="form-control" id="nombre" name="nombre" value="{{ old('nombre', $torre->nombre) }}" >
