@@ -71,7 +71,7 @@
         </div>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
-                let tablaTorres =  $('#tabla-torres').DataTable({
+                var tablaTorres =  $('#tabla-torres').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: '{{ route('torres.data') }}',
@@ -102,6 +102,39 @@
             /* eliminar torre */
             const eliminarTorre = (id)=>{
                 /* SweetAlert con preConfirm con la peticion delete de torrre/id  tablaTorre.ajax.reload()*/
-            }
+                Swal.fire({
+                title: "¿Estás seguro?",
+                text: "No podrás revertir esto",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar",
+                progressSteps: ["1", "2"],
+                preConfirm: () => {
+                    return axios
+                        .delete(`/torres/${id}`)
+                        .then(() => {
+                            //this.getTorre();
+                            tablaTorres.ajax.reload()
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            document.getElementById("error").innerText =
+                                "No se pudo eliminar la torre";
+                        });
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Torre eliminado",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            });
+        }
         </script>
     @endsection
