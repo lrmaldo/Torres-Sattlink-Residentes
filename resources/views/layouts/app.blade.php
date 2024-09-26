@@ -89,7 +89,7 @@
                         <a class="nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">{{ __('Mapa') }}</a>
+                        <a class="nav-link" href="{{ route('mapa.index') }}">{{ __('Mapa') }}</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
