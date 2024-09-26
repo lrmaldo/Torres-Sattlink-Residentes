@@ -27525,7 +27525,7 @@ process.umask = function() { return 0; };
 /***/ (function(module) {
 
 /*!
-* sweetalert2 v11.14.1
+* sweetalert2 v11.14.0
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -32030,7 +32030,7 @@ process.umask = function() { return 0; };
     };
   });
   SweetAlert.DismissReason = DismissReason;
-  SweetAlert.version = '11.14.1';
+  SweetAlert.version = '11.14.0';
 
   const Swal = SweetAlert;
   // @ts-ignore

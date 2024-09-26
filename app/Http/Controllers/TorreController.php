@@ -88,7 +88,7 @@ class TorreController extends Controller
     public function update(UpdateTorreRequest $request, Torre $torre)
     {
         //
-       
+
         $torre->nombre = $request->nombre;
         $torre->latitud = $request->latitud;
         $torre->longitud = $request->longitud;
@@ -106,7 +106,8 @@ class TorreController extends Controller
      */
     public function destroy(Torre $torre)
     {
-        //
+       $torre->delete();
+       return response()->json(['mensaje'=> 'Se elimino correctamente'],200);
     }
 
     public function obtenerTorres(){

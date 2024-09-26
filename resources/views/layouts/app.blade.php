@@ -17,6 +17,8 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
+    {{-- lenguajes datatables --}}
+    <script src="{{asset('/js/datatable/lenguajes.js')}}"></script>
     {{-- datatables fuentes --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css">
     {{-- js --}}

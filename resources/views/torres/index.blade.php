@@ -70,8 +70,9 @@
             </div>
         </div>
         <script>
+            var tablaTorres ;
             document.addEventListener('DOMContentLoaded', function() {
-                var tablaTorres =  $('#tabla-torres').DataTable({
+                tablaTorres =  $('#tabla-torres').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: '{{ route('torres.data') }}',
@@ -93,9 +94,7 @@
                             searchable: false
                         },
                     ],
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/2.1.7/i18n/es-MX.json',
-                    },
+                    language: lenguajes
                 });
             });
 
