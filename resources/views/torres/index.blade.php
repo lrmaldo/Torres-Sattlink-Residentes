@@ -54,6 +54,7 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
+                                <th>Nombre</th>
                                 <th>Ubicación</th>
                                 <th>Estado</th>
                                 <th>Última Revisión</th>
@@ -78,6 +79,10 @@
                     ajax: '{{ route('torres.data') }}',
                     columns: [{
                             data: 'id',
+                        },
+                        /* nombre */
+                        {
+                            data:'nombre'
                         },
                         {
                             data: 'ubicacion'

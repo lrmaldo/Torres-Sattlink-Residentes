@@ -63,7 +63,7 @@ class TorreController extends Controller
      */
     public function show(Torre $torre)
     {
-        //
+       return view('torres.show',compact('torre'));
     }
 
     /**
