@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container mt-5">
-    <h1 class="mb-4">Agregar Torre</h1>
+    <h1 class="mb-4">Agregar Sitios</h1>
     <form action="{{ route('torres.store') }}" method="POST">
         @csrf
         <div class="mb-3">

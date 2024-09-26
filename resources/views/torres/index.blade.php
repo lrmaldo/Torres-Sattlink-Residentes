@@ -9,7 +9,7 @@
                 <div class="col-md-3 mb-3">
                     <div class="card text-white bg-primary">
                         <div class="card-body">
-                            <h5 class="card-title">Total de Torres</h5>
+                            <h5 class="card-title">Total de Sitios</h5>
                             <p class="card-text display-4">{{ $totalTorres }}</p>
                         </div>
                     </div>
@@ -17,7 +17,7 @@
                 <div class="col-md-3 mb-3">
                     <div class="card text-white bg-success">
                         <div class="card-body">
-                            <h5 class="card-title">Torres Activas</h5>
+                            <h5 class="card-title">Sitios Activos</h5>
                             <p class="card-text display-4">{{ $torresActivos }}</p>
                         </div>
                     </div>
@@ -34,19 +34,19 @@
                 <div class="col-md-3 mb-3">
                     <div class="card text-white bg-danger">
                         <div class="card-body">
-                            <h5 class="card-title ">Torres Inactivas</h5>
+                            <h5 class="card-title ">Sitios Inactivos</h5>
                             <p class="card-text display-4">{{ $torresInactivos }}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <h2>Lista de Torres</h2>
+            <h2>Lista de Sitios</h2>
 
             <div class="container mt-2">
                 <a href="{{ route('torres.create') }}" class="btn btn-info" id="addTowerBtn">
                     <i class="bi bi-plus-circle-fill me-2"></i>
-                    Agregar Torre
+                    Agregar Sitios
                 </a>
 
                 <div class="table-responsive">
@@ -57,7 +57,7 @@
                                 <th>Nombre</th>
                                 <th>Ubicación</th>
                                 <th>Estado</th>
-                                <th>Última Revisión</th>
+                                <th>Ultima vez actualizado</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -133,7 +133,7 @@
                 if (result.isConfirmed) {
                     Swal.fire({
                         icon: "success",
-                        title: "Torre eliminado",
+                        title: "Sitio eliminado",
                         showConfirmButton: false,
                         timer: 1500,
                     });
