@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
    Route::resource('users', UserController::class);
 
    Route::resource('torres',TorreController::class);
-   Route::get('mapa', [MapaController::class, 'index']);
+   Route::get('mapa', [MapaController::class, 'index'])->name('mapa.index');
    Route::get('torres-data',[TorreController::class,'obtenerTorres'])->name('torres.data');
 });
 
