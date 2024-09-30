@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Torre;
 use App\Http\Requests\StoreTorreRequest;
 use App\Http\Requests\UpdateTorreRequest;
-
+use App\Models\Dispositivo;
 class TorreController extends Controller
 {
     /**
@@ -63,7 +63,12 @@ class TorreController extends Controller
      */
     public function show(Torre $torre)
     {
-       return view('torres.show',compact('torre'));
+        $totalDispositivos = Dispositivo::where('torre_id', $torre->id)
+        ->count();
+        $DispositivosActivos = 0;
+        $DispositivosInactivos = 0;
+        $DispositivosMantenimiento = 0;
+       return view('torres.show',compact('torre','totalDispositivos','DispositivosActivos','DispositivosInactivos','DispositivosMantenimiento'));
     }
 
     /**
