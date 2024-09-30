@@ -33,6 +33,12 @@ Route::middleware(['auth'])->group(function () {
    Route::resource('users', UserController::class);
 
    Route::resource('torres',TorreController::class);
+   ## Route::resource('dispositivos',DispositivoController::class);
+   /* dispositivo create */
+    Route::get('dispositivos/create/{torre_id}',[DispositivoController::class,'create'])->name('dispositivos.create');
+
+    /* resource only store update edit delete */
+    Route::resource('dispositivos',DispositivoController::class)->only(['store','update','edit','destroy']);
    Route::get('mapa', [MapaController::class, 'index'])->name('mapa.index');
    Route::get('torres-data',[TorreController::class,'obtenerTorres'])->name('torres.data');
    Route::get('dispositivos-data/{id}',[DispositivoController::class,'obtenerDispositivos'])->name('dispositivos.data');

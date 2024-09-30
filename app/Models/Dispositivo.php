@@ -14,16 +14,17 @@ class Dispositivo extends Model
         'hostname',
         'ip',
         'usuario',
-        'contraseña',
+        'password',
         'ssid',
         'numero_de_cliente',
         'marca',
         'modelo',
-        'altitud',
+        'latitud',
         'longitud',
         'img_url',
         'comentario',
-        'torre_id'
+        'torre_id',
+        'radio_transmision'
     ];
 
     public function torre()
