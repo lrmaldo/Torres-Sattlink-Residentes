@@ -1,7 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
+
+</style>
+<div class="container mt-5 bg-white">
     <h1 class="mb-4">Agregar Sitios</h1>
     <form action="{{ route('torres.store') }}" method="POST">
         @csrf
