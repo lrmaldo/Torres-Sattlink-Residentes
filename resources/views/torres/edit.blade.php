@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-5 bg-white">
     <h1 class="mb-4">Editar Sitio</h1>
     <form action="{{ route('torres.update', $torre->id)}}" method="POST">
         @csrf

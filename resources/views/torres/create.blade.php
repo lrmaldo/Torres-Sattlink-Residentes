@@ -3,9 +3,9 @@
 @section('content')
 
 </style>
-<div class="container mt-5 bg-white">
+<div class="container mt-5 bg-white ">
     <h1 class="mb-4">Agregar Sitios</h1>
-    <form action="{{ route('torres.store') }}" method="POST">
+    <form action="{{ route('torres.store') }}" method="POST"  class="mx-3 mb-3">
         @csrf
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
@@ -39,7 +39,7 @@
             </select>
             <span class="text-danger">{{ $errors->first('estado') }}</span>
         </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary mb-4">Guardar</button>
     </form>
 </div>
 
