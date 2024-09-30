@@ -118,7 +118,9 @@ class DispositivoController extends Controller
         //dd($dispositivos);
         return datatables()->of($dispositivos)
         ->addColumn('acciones', function($dispositivo){
-            $button = '<a href="/dispositivos/'.$dispositivo->id.'/edit" class="edit btn btn-primary btn-sm">Editar</a>';
+            /* ver que muestre un modal de vista */
+            $button = '<a href="javascript:void(0)" data-toggle="modal" data-target="#viewDispositivoModal" data-id="'.$dispositivo->id.'" class="view btn btn-info btn-sm">Ver</a>';
+            $button .= '&nbsp;&nbsp;&nbsp;<a href="/dispositivos/'.$dispositivo->id.'/edit" class="edit btn btn-primary btn-sm">Editar</a>';
             $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="delete" id="'.$dispositivo->id.'" class="delete btn btn-danger btn-sm">Eliminar</button>';
             return $button;
         })

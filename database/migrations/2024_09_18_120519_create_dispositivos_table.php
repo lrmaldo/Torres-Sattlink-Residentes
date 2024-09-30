@@ -28,6 +28,8 @@ class CreateDispositivosTable extends Migration
             $table->string('longitud')->nullable();
             $table->text('img_url')->nullable();
             $table->text('comentario')->nullable();
+            /* estado */
+            $table->string('estado')->nullable();
             $table->foreignId('torre_id')->nullable()->references('id')->on('torres')
             ->onDelete('cascade')
             ->onUpdate('cascade');
