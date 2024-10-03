@@ -42,6 +42,11 @@ Route::middleware(['auth'])->group(function () {
    Route::get('mapa', [MapaController::class, 'index'])->name('mapa.index');
    Route::get('torres-data',[TorreController::class,'obtenerTorres'])->name('torres.data');
    Route::get('dispositivos-data/{id}',[DispositivoController::class,'obtenerDispositivos'])->name('dispositivos.data');
+
+   /* calculadora-radio */
+    Route::get('calculadora-radio',function(){
+         return view('calculadora-radio');
+    })->name('calculadora-radio');
 });
 
 

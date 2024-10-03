@@ -72,57 +72,125 @@
                 mapId: "f1b7b3b3b3b3b3b3",
             });
 
-            google.maps.importLibrary("marker").then(() => {
-                // The advanced marker, positioned at Uluru
-                const marker = new google.maps.Marker({
+            // Función para crear un círculo en el mapa
+            function createCircle(map, center, radius, color) {
+                const circle = new google.maps.Circle({
+                    strokeColor: "#FF0000",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#FF0000",
+                    fillOpacity: 0.35,
                     map,
-                    position: position,
-                    title: 'Tuxtepec',
+                    center: center,
+                    radius: parseFloat(radius), // Radio en metros
                 });
+                console.log(circle);
+                return circle; // Retornamos el círculo para poder manipularlo si es necesario
+            }
 
-                const infoWindow = new google.maps.InfoWindow({
-                    content: '<h1>Tuxtepec</h1>'
-                });
-                marker.addListener('click', () => {
-                    infoWindow.open(map, marker);
-                });
 
+            /* Hacer una solicitud  a la api para obtener las torres y dispositivos */
+
+            axios.get('/api/torres-y-dispositivos').then(response => {
+                const torres = response.data;
+
+                torres.forEach(torre => {
+                    const position = {
+                        lat: parseFloat(torre.latitud),
+                        lng: parseFloat(torre.longitud)
+                    };
+
+                    google.maps.importLibrary("marker").then(() => {
+                        // Crear marcador para la torre
+                        const marker = new google.maps.Marker({
+                            map,
+                            position: position,
+                            title: torre.nombre,
+                            icon: {
+                                url: torre.estado == 1 ?
+                                    'http://maps.google.com/mapfiles/ms/icons/green-dot.png' :
+                                    'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+                            }
+                        });
+
+                        const infoWindow = new google.maps.InfoWindow({
+                            content: `<h3>${torre.nombre}</h3>
+                            <p>${torre.comentarios?? ''}</p>`
+                        });
+
+                        marker.addListener('click', () => {
+                            infoWindow.open(map, marker);
+                        });
+
+                    });
+
+                    /* Aquí es donde el código fallaba, ahora comprobamos que la propiedad `dispositivos` existe y no es null */
+                    if (torre.dispositivos && torre.dispositivos.length >
+                        0) { // Aseguramos que dispositivos no sea null o vacío
+                        torre.dispositivos.forEach(dispositivo => {
+                            const devicePosition = {
+                                lat: parseFloat(dispositivo.latitud),
+                                lng: parseFloat(dispositivo.longitud)
+                            };
+
+                            google.maps.importLibrary("marker").then(() => {
+                                // Crear marcador para el dispositivo
+                                const marker = new google.maps.Marker({
+                                    map,
+                                    position: devicePosition,
+                                    title: dispositivo.hostname,
+                                    icon: {
+                                        url: dispositivo.estado == 1 ?
+                                            'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' :
+                                            'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+                                    }
+                                });
+
+                                const infoWindow = new google.maps.InfoWindow({
+                                    content: `<h1>${dispositivo.hostname}</h1>
+                                                <img src="${dispositivo.img_url}" alt="${dispositivo.hostname}" style="width: 100px; height: 100px;">
+                                                <p>IP: <a href="http://${dispositivo.ip}" target="_blank">${dispositivo.ip}</a></p>
+                                                <p>SSID: ${dispositivo.ssid}</p>
+                                                <p>Marca: ${dispositivo.marca}</p>
+                                                <p>Modelo: ${dispositivo.modelo}</p>
+                                                <p>Comentario: ${dispositivo.comentario?? 'Sin comentario'}</p>`
+                                });
+
+                                marker.addListener('click', () => {
+                                    infoWindow.open(map, marker);
+                                });
+                            });
+
+                            /* Si un dispositivo es de tipo AP, dibujamos el radio de transmisión */
+                            if (dispositivo.tipo == 'AP') {
+                                console.log('dispositivo', dispositivo);
+                                // Personaliza el color del círculo según el estado del dispositivo (opcional)
+                                const circleColor = dispositivo.estado === 1 ? '#00FF00' :
+                                    '#FF0000';
+
+                                // Crea el círculo con un radio personalizado (ajusta el valor según tus necesidades)
+                                console.log('dispositivo.radio_transmision', dispositivo
+                                    .radio_transmision);
+                                const circle = createCircle(map, devicePosition, dispositivo
+                                    .radio_transmision,
+                                    circleColor); // Radio de 500 metros
+                                // map.setCenter(devicePosition);
+                                // Puedes agregar eventos al círculo si lo deseas
+                                circle.addListener('click', () => {
+                                    // Muestra una ventana informativa o realiza alguna otra acción
+                                    console.log('Hiciste clic en el círculo');
+                                });
+
+
+                            }
+                        });
+                    }
+                });
             });
 
         }
         google.maps.importLibrary("maps").then(() => {
             initMap();
         });
-    </script>
-
-    <script>
-        /*   function initMap() {
-                const position = {
-                    lat: 18.0809029,
-                    lng: -96.1420957
-                };
-
-                const map = new google.maps.Map(document.getElementById("map"), {
-                    zoom:13,
-                    center: position,
-                    mapId:  "f1b7b3b3b3b3b3b3",
-                });
-
-                // The advanced marker, positioned at Uluru
-                const marker = new google.maps.marker.AdvancedMarkerElement({
-                    map,
-                    position: position,
-                    title: 'Uluru',
-                });
-
-            }
-
-            // Cargar el script de Google Maps de manera asíncrona
-            var script = document.createElement('script');
-            script.src =
-                "https://maps.googleapis.com/maps/api/js?key=AIzaSyBDS9ZIrYxrNhDYACm11Vxaw1c_jhpsvMk&callback=initMap&v=weekly&libraries=marker";
-            script.async = true;
-            script.defer = true;
-            document.head.appendChild(script); */
     </script>
 @endsection
