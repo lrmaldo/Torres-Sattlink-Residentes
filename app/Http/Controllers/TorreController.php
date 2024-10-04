@@ -51,6 +51,8 @@ class TorreController extends Controller
         $torre->longitud = $request->longitud;
         $torre->comentarios = $request->comentarios;
         $torre->estado = $request->estado;
+        $torre->direccion = $request->direccion;
+        $torre->altura = $request->altura;
         $torre->save();
         return redirect()->route('torres.index')->with('success','Torre creada correctamente');
     }
@@ -99,6 +101,8 @@ class TorreController extends Controller
         $torre->longitud = $request->longitud;
         $torre->comentarios = $request->comentarios;
         $torre->estado = $request->estado;
+        $torre->direccion = $request->direccion;
+        $torre->altura = $request->altura;
         $torre->save();
         return redirect()->route('torres.index')->with('success','Torre Actualizada Correctamente');
     }

@@ -7,10 +7,10 @@
     <title>Calculadora de Radio de Transmisión de AP</title>
 
     {{-- estilos bootstrap  --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.esm.min.js"></script>
+
 
 </head>
 
@@ -19,69 +19,51 @@
 
 
 
-    <p class="text-muted">Formula general para calcular la distancia de transmisión:</p>
-    <p class="text-muted">d = 10 ^ ((P_t + G_t + G_r - L_p - S) / 20)
+    <p class="text-muted">Formula del radio de Fresnel:</p>
+    <p class="text-muted">
     </p>
-    <label for="potencia">Potencia de Transmisión (dBm):</label>
-    <input type="number" id="potencia" placeholder="Ej. 20  Corresponde al TX Power"><br><br>
+    <label for="potencia" class="form-label">Potencia de Transmisión (dBm):</label>
+    <input type="number" id="potencia" class="form-control" placeholder="Ej. 20  Corresponde al TX Power"><br><br>
 
-    <label for="ganancia-ap">Ganancia de Antena AP (dBi):</label>
-    <input type="number" id="ganancia-ap" placeholder="Ej. son los dBi"><br><br>
+    {{-- potencia de transmision en watts label --}}
+    <label for="potencia-watts" class="form-label">Potencia de Transmisión (Watts):</label>
+    <input type="number" id="potencia-watts" class="form-control" disabled placeholder=" TX Power"><br><br>
 
-    <label for="ganancia-receptor">Ganancia de Antena Receptor (dBi):</label>
-    <input type="number" id="ganancia-receptor" placeholder="Ej. 2"><br><br>
+    {{-- Ganancia de la antena --}}
+    <label for="ganancia-antena" class="form-label">Ganancia de la Antena (dBi):</label>
+    <input type="number" class="form-control" id="ganancia-antena" placeholder="Ej. 10"><br><br>
 
-    <label for="perdida">Pérdida de Propagación (dB):</label>
-    <input type="number" id="perdida" placeholder="Ej. 100"><br><br>
+    {{-- Frecuencia operativa --}}
 
-    <label for="sensibilidad">Sensibilidad del Receptor (dBm):</label>
-    <input type="number" id="sensibilidad" placeholder="Ej. -90"><br><br>
+    <label for="frecuencia-operativa" class="form-label">Frecuencia operativa (Mhz):</label>
+    <input type="number" class="form-control" id="frecuencia-operativa" placeholder="Ej. 2"><br><br>
 
-    <button onclick="calcular()">Calcular Radio</button>
 
+    <button class="btn btn-primary" id="calcular">Calcular Distancia Máxima</button>
     <h3 id="resultado"></h3>
 
     <script>
-        let input_perdida = document.getElementById("perdida");
-        input_perdida.addEventListener("input", function() {
+        //let potencia = document.getElementById('potencia');
+        let potenciaWatts = document.getElementById('potencia-watts');
+        let frecuenciaOperativa = document.getElementById('frecuencia-operativa');
+        // let gananciaAntena = document.getElementById('ganancia-antena');
+        let resultado = document.getElementById('resultado');
+        let botonCalcular = document.getElementById('calcular');
+        let potenciaTransmision = 37; // Potencia de transmisión en dBm (5W)
+        let gananciaAntena = 18; // Ganancia de la antena en dBi
+        let frecuenciaGHz = 5.43; // Frecuencia en GHz (5330 MHz)
+        let potenciaRecibida = -85; // Potencia recibida en dBm (ajustar según sea necesario)
 
-        });
-
-
-        function calcular() {
-            // Obtener valores
-            let P_t = parseFloat(document.getElementById("potencia").value);
-            let G_t = parseFloat(document.getElementById("ganancia-ap").value);
-            let G_r = parseFloat(document.getElementById("ganancia-receptor").value);
-            let L_p = parseFloat(document.getElementById("perdida").value);
-            let S = parseFloat(document.getElementById("sensibilidad").value);
-
-            // Fórmula para calcular distancia
-            let d = Math.pow(10, ((P_t + G_t + G_r - L_p - S) / 20));
-
-            // Mostrar resultado
-            document.getElementById("resultado").innerHTML = "El radio de transmisión es: " + d.toFixed(2) + " metros.";
+        // Cálculo de distancia máxima
+        function calcularDistanciaMaxima(Pt, Gt, Gr, Pr, f) {
+            // Asegúrate de que la operación se realice correctamente
+            const d = Math.pow(10, ((Pr - Pt - Gt - Gr) / 20) + Math.log10(f));
+            return d; // distancia en km
         }
 
-        function calculateDistance(txPower, rxGain, txGain, frequency, sensitivity) {
-            // FSPL = TX Power + RX Gain + TX Gain - Sensitivity
-            let fspl = txPower + rxGain + txGain - sensitivity;
-
-            // Calculamos la distancia en kilómetros
-            let distance = Math.pow(10, (fspl - 32.44 - 20 * Math.log10(frequency)) / 20);
-
-            return distance; // Regresa la distancia en kilómetros
-        }
-
-        let txPower = 25; // Potencia de transmisión en dBm
-        let txGain = 23; // Ganancia de la antena del transmisor en dBi
-        let rxGain = 23; // Ganancia de la antena del receptor en dBi
-        let frequency = 5440; // Frecuencia en MHz
-        let sensitivity = -80; // Sensibilidad del receptor en dBm
-
-        let distance = calculateDistance(txPower, rxGain, txGain, frequency, sensitivity);
-
-        console.log("Distancia de cobertura máxima: " + distance.toFixed(2) + " km");
+        let distanciaMaxima = calcularDistanciaMaxima(potenciaTransmision, gananciaAntena, gananciaAntena, potenciaRecibida,
+            frecuenciaGHz);
+        console.log(`La distancia máxima estimada es: ${distanciaMaxima.toFixed(2)} km`);
     </script>
 </body>
 

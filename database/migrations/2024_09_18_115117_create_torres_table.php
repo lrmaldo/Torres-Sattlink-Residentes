@@ -20,6 +20,11 @@ class CreateTorresTable extends Migration
             $table->string('latitud')->nullable();
             $table->text('comentarios')->nullable();
             $table->boolean('estado')->default(1);
+            /* direccion */
+            $table->text('direccion')->nullable();
+            $table->text('img_url')->nullable();
+            /* altura */
+            $table->string('altura')->nullable();
             $table->timestamps();
         });
     }
