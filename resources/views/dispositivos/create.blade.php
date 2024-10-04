@@ -65,6 +65,24 @@
             <input type="text" class="form-control" id="modelo" name="modelo" value="{{ old('modelo') }}" >
             <span class="text-danger">{{ $errors->first('modelo') }}</span>
         </div>
+        {{--longitud--}}
+        <div class="mb-3">
+            <label for="longitud" class="form-label">Longitud</label>
+            <input type="text" class="form-control" id="longitud" name="longitud" value="{{ old('longitud') }}" >
+            <span class="text-danger">{{ $errors->first('longitud') }}</span>
+        </div>
+        {{--latitud--}}
+        <div class="mb-3">
+            <label for="latitud" class="form-label">Latitud</label>
+            <input type="text" class="form-control" id="latitud" name="latitud" value="{{ old('latitud') }}" >
+            <span class="text-danger">{{ $errors->first('latitud') }}</span>
+        </div>
+        {{--radiodetransmision--}}
+        <div class="mb-3">
+            <label for="radiodetransmision" class="form-label">Radio de Transmicion</label>
+            <input type="text" class="form-control" id="radiodetransmision" name="radiodetransmision" value="{{ old('latitud') }}" >
+            <span class="text-danger">{{ $errors->first('radiodetransmision') }}</span>
+        </div>
         {{-- img_url input file --}}
         <div class="mb-3">
             <label for="img_url" class="form-label">Imagen</label>
