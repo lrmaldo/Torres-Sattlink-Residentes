@@ -106,5 +106,44 @@
                             language: lenguajes
                         });
                     });
+
+
+/* eliminar Dispositivo */
+const eliminarDispositivo = (id)=>{
+                
+                Swal.fire({
+                title: "¿Estás seguro?",
+                text: "No podrás revertir esto",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Sí, eliminar",
+                cancelButtonText: "Cancelar",
+                progressSteps: ["1", "2"],
+                preConfirm: () => {
+                    return axios
+                        .delete(`/dispositivos/${id}`)
+                        .then(() => {
+                            tablaDispos.ajax.reload()
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            document.getElementById("error").innerText =
+                                "No se pudo eliminar el dispositivo";
+                        });
+                },
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Dispositivo eliminado",
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                }
+            });
+        }
+
                 </script>
             @endsection
