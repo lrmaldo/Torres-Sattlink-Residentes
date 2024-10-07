@@ -77,10 +77,10 @@
             <input type="text" class="form-control" id="latitud" name="latitud" value="{{ old('latitud', $dispositivo->latitud) }}" >
             <span class="text-danger">{{ $errors->first('latitud') }}</span>
         </div>
-        {{--radiodetransmision--}}
+        {{--radio_transmision--}}
         <div class="mb-3">
-            <label for="radiodetransmision" class="form-label">Radio de Transmicion</label>
-            <input type="text" class="form-control" id="radiodetransmision" name="radiodetransmision" value="{{ old('radio_transmision', $dispositivo->radio_transmision) }}" >
+            <label for="radio_transmision" class="form-label">Radio de Transmicion</label>
+            <input type="text" class="form-control" id="radio_transmision" name="radio_transmision" value="{{ old('radio_transmision', $dispositivo->radio_transmision) }}" >
             <span class="text-danger">{{ $errors->first('radio_transmision') }}</span>
         </div>
         {{-- img_url input file --}}

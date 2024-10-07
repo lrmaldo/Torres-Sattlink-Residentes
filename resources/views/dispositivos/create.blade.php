@@ -79,9 +79,9 @@
         </div>
         {{--radiodetransmision--}}
         <div class="mb-3">
-            <label for="radiodetransmision" class="form-label">Radio de Transmicion</label>
-            <input type="text" class="form-control" id="radiodetransmision" name="radiodetransmision" value="{{ old('latitud') }}" >
-            <span class="text-danger">{{ $errors->first('radiodetransmision') }}</span>
+            <label for="radio_transmision" class="form-label">Radio de Transmicion</label>
+            <input type="text" class="form-control" id="radio_transmision" name="radio_transmision" value="{{ old('latitud') }}" >
+            <span class="text-danger">{{ $errors->first('radio_transmision') }}</span>
         </div>
         {{-- img_url input file --}}
         <div class="mb-3">

@@ -122,6 +122,7 @@ class DispositivoController extends Controller
         $dispositivo->latitud = $request->latitud;
         $dispositivo->longitud = $request->longitud;
         $dispositivo->comentario = $request->comentario;
+        $dispositivo->radio_transmision = $request->radio_transmision;
         $dispositivo->estado = $request->estado;
 
         $dispositivo->save();
@@ -138,7 +139,7 @@ class DispositivoController extends Controller
     {
         $dispositivo->delete();
         return response()->json(['success' => 'Dispositivo eliminado']);
-        
+
     }
 
     public function obtenerDispositivos($id)
