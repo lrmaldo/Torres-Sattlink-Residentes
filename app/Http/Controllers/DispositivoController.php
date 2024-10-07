@@ -148,7 +148,7 @@ class DispositivoController extends Controller
                 /* ver que muestre un modal de vista */
                 $button = '<a href="javascript:void(0)" data-toggle="modal" data-target="#viewDispositivoModal" data-id="' . $dispositivo->id . '" class="view btn btn-info btn-sm">Ver</a>';
                 $button .= '&nbsp;&nbsp;&nbsp;<a href="/dispositivos/' . $dispositivo->id . '/edit" class="edit btn btn-primary btn-sm">Editar</a>';
-                $button .= '&nbsp;&nbsp;&nbsp;<button type="button" name="delete" id="' . $dispositivo->id . '" class="delete btn btn-danger btn-sm">Eliminar</button>';
+                $button .= '&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)"  onclick="eliminarDispositivo(' . $dispositivo->id . ')" class="delete btn btn-danger btn-sm">Eliminar</a>';
                 return $button;
             })
         /* addcolumn ubicacion */
