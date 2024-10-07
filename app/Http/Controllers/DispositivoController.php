@@ -6,6 +6,8 @@ use App\Models\Dispositivo;
 use App\Http\Requests\StoreDispositivoRequest;
 use App\Http\Requests\UpdateDispositivoRequest;
 use App\Models\Torre;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class DispositivoController extends Controller
 {
@@ -45,7 +47,7 @@ class DispositivoController extends Controller
           if($request->hasFile('img_url')){
             $file = $request->file('img_url');
             $name = time().$file->getClientOriginalName();
-            $file->move(public_path().'/images/',$name);
+              Storage::disk('public')->put('images/', $file);
           }
             $dispositivo = new Dispositivo();
             $dispositivo->tipo = $request->tipo;
@@ -59,9 +61,10 @@ class DispositivoController extends Controller
             $dispositivo->modelo = $request->modelo;
             $dispositivo->latitud = $request->latitud;
             $dispositivo->longitud = $request->longitud;
-            $dispositivo->img_url = $request->hasFile('img_url') ? $name : '';
+            $dispositivo->img_url = Storage::url('images/'.$name);
             $dispositivo->comentario = $request->comentario;
             $dispositivo->torre_id = $request->torre_id;
+            $dispositivo->estado = $request->estado;
             $dispositivo->save();
             return redirect()->route('torres.show',$request->torre_id)->with('success','Dispositivo creado correctamente');
 
@@ -86,7 +89,7 @@ class DispositivoController extends Controller
      */
     public function edit(Dispositivo $dispositivo)
     {
-        //
+        return view('dispositivos.edit',compact('dispositivo'));
     }
 
     /**
@@ -98,7 +101,33 @@ class DispositivoController extends Controller
      */
     public function update(UpdateDispositivoRequest $request, Dispositivo $dispositivo)
     {
-        //
+          /* verificar si existe una imagen en el request para proceder eliminar el que esta en la base de datos  */
+          if($request->hasFile('img_url')){
+            $file = $request->file('img_url');
+
+            /* guardar la imagen en el storage */
+           $file =  Storage::disk('public')->put('images/', $file);
+
+            /* eliminar la imagen anterior */
+            Storage::delete('public/images/'.$dispositivo->img_url);
+            $dispositivo->img_url = Storage::url($file);
+          }
+            $dispositivo->tipo = $request->tipo;
+            $dispositivo->hostname = $request->hostname;
+            $dispositivo->ip = $request->ip;
+            $dispositivo->usuario = $request->usuario;
+            $dispositivo->password = $request->password;
+            $dispositivo->ssid = $request->ssid;
+            $dispositivo->numero_de_cliente = $request->numero_de_cliente;
+            $dispositivo->marca = $request->marca;
+            $dispositivo->modelo = $request->modelo;
+            $dispositivo->latitud = $request->latitud;
+            $dispositivo->longitud = $request->longitud;
+            $dispositivo->comentario = $request->comentario;
+            $dispositivo->estado = $request->estado;
+
+            $dispositivo->save();
+            return redirect()->route('torres.show',$dispositivo->torre_id)->with('success','Dispositivo actualizado correctamente');
     }
 
     /**

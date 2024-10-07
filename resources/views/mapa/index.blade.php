@@ -148,7 +148,7 @@
 
                                 const infoWindow = new google.maps.InfoWindow({
                                     content: `<h3>${dispositivo.hostname}</h3>
-                                                <img src="/images/${dispositivo.img_url?? 'no-image.png'}" alt="${dispositivo.hostname}" style="width: 100px; height: 100px;">
+                                                <img src="${dispositivo.img_url}" alt="${dispositivo.hostname}" style="width: 100px; height: 100px;">
                                                 <p>IP: <a href="http://${dispositivo.ip}" target="_blank">${dispositivo.ip}</a></p>
                                                 <p>SSID: ${dispositivo.ssid}</p>
                                                 <p>Marca: ${dispositivo.marca}</p>

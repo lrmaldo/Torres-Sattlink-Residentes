@@ -94,8 +94,7 @@
         {{-- comentario --}}
         <div class="mb-3">
             <label for="comentario" class="form-label">Comentario</label>
-            <textarea class="form-control" id="comentario" name="comentario" rows="3">
-                {{ old('comentario') }}
+            <textarea class="form-control" id="comentario" name="comentario" rows="3">{{ old('comentario') }}
             </textarea>
             <span class="text-danger">{{ $errors->first('comentario') }}</span>
         </div>
