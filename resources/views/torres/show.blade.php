@@ -125,7 +125,7 @@ const eliminarDispositivo = (id)=>{
                     return axios
                         .delete(`/dispositivos/${id}`)
                         .then(() => {
-                            tablaDispos.ajax.reload()
+                            tablaDispositivos.ajax.reload()
                         })
                         .catch((error) => {
                             console.error(error);
