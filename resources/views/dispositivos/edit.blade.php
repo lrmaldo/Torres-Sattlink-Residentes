@@ -4,7 +4,7 @@
 
 </style>
 <div class="container mt-5 bg-white ">
-    <h1 class="mb-4">Agregar Dispositivo</h1>
+    <h1 class="mb-4">Editar Dispositivo</h1>
     <form action="{{ route('dispositivos.update', $dispositivo->id) }}" method="POST"   class="mx-3 mb-3" enctype="multipart/form-data">
         @csrf
         @method('PUT')

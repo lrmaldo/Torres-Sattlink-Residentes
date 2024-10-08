@@ -57,6 +57,10 @@
             background-color: #cfe2ff;
             color: #084298;
         }
+        /* primary color  */
+        .bg-primary {
+            background-color: #f7430e !important;
+        }
 
     </style>
 
@@ -64,49 +68,49 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md bg-primary navbar-light shadow-sm">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/home') }}">
                 {{-- img  y texto alado --}}
                 <div class="d-flex align-items-center">
-                    <img src="https://sattlink.com/img/Sattlink-logo-nuevo.png" alt="logo" class="img-fluid"
+                    <img src="{{asset('/images/Sattlink-2024-logo-blanco.png')}}" alt="logo" class="img-fluid"
                         width="70">
-                    <span class="m-3 ">Torres</span>
+                    <span class="m-3 text-white">Torres</span>
                 </div>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon text-white"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">{{ __('Torres') }}</a>
+                        <a class="nav-link text-white" href="{{ route('home') }}">{{ __('Torres') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a>
+                        <a class="nav-link text-white" href="{{ route('users.index') }}">{{ __('Usuarios') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('mapa.index') }}">{{ __('Mapa') }}</a>
+                        <a class="nav-link text-white" href="{{ route('mapa.index') }}">{{ __('Mapa') }}</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     @guest
                         @if (Route::has('login'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                         @endif
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                            <a id="navbarDropdown" class="nav-link text-white dropdown-toggle" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
                             </a>

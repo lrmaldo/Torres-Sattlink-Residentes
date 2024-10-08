@@ -75,7 +75,7 @@ class DispositivoController extends Controller
      */
     public function show(Dispositivo $dispositivo)
     {
-        //
+        return response()->json($dispositivo);
     }
 
     /**
