@@ -14,7 +14,7 @@
             min-height: 100vh;
         }
         header {
-            background-color: #f8f9fa;
+            background-color: #f7430e;
             color: rgb(0,0,255);
             padding: 1rem;
             display: flex;
@@ -34,23 +34,24 @@
         }
         nav ul li a {
             text-decoration: none;
-            color: #333;
+            color:white
         }
         main {
             flex-grow: 1;
             padding: 2rem;
         }
         footer {
-            background-color: #f8f9fa;
+            background-color: #f7430e;
             text-align: center;
             padding: 1rem;
             margin-top: auto;
+            color:white
         }
     </style>
 </head>
 <body>
     <header>
-        <img src="https://sattlink.com/img/Sattlink-logo-nuevo.png" alt="Logo de la empresa" class="logo">
+        <img src="/images/Sattlink-2024-logo-blanco.png" alt="Logo de la empresa" class="logo">
         <nav>
             <ul>
                 <li><a href="#">Inicio</a></li>
