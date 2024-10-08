@@ -67,9 +67,9 @@ class TorreController extends Controller
     {
         $totalDispositivos = Dispositivo::where('torre_id', $torre->id)
         ->count();
-        $DispositivosActivos = 0;
-        $DispositivosInactivos = 0;
-        $DispositivosMantenimiento = 0;
+        $DispositivosActivos = Dispositivo::where('torre_id', $torre->id)->where('estado',1)->count();
+        $DispositivosInactivos = Dispositivo::where('torre_id', $torre->id)->where('estado',0)->count();
+        $DispositivosMantenimiento = Dispositivo::where('torre_id', $torre->id)->where('estado',2)->count();
        return view('torres.show',compact('torre','totalDispositivos','DispositivosActivos','DispositivosInactivos','DispositivosMantenimiento'));
     }
 
