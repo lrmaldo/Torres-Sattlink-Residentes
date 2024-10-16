@@ -53,10 +53,11 @@
     <header>
         <img src="/images/Sattlink-2024-logo-blanco.png" alt="Logo de la empresa" class="logo">
         <nav>
+            <header> 
             <ul>
-                <li><a href="#">Inicio</a></li>
+                <li><a href="/">Página principal</a></li>
                 <li><a href="#">Servicios</a></li>
-                <li><a href="#">Contacto</a></li>
+                <li><a href="{{ route('contacto') }}">Contáctanos</a></li>
                 {{-- login --}}
                 @if (Route::has('login'))
                     @auth
@@ -78,9 +79,9 @@
                 body {
                     margin: 0;
                     padding: 0;
-                    height: 100vh; /* Altura completa de la ventana */
-                    background-image: url('https://rentadeplantas.com.mx/wp-content/uploads/2020/11/torre-telecomunicacion-00.jpg'); /* URL de la imagen */
-                    background-size: cover; /* Ajusta la imagen al tamaño de la ventana */
+                    height: 80vh; /* Altura completa de la ventana */
+                    background-image: url('https://images.unsplash.com/photo-1533664488202-6af66d26c44a?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); /* URL de la imagen */
+                    background-size: auto ; /* Ajusta la imagen al tamaño de la ventana */
                     background-position: center; /* Centra la imagen */
                     background-repeat: no-repeat; /* Evita que la imagen se repita */
                 }
@@ -93,7 +94,9 @@
         </head>
         <body>
         </h1>
-        <p></p>
+        <p> 
+            
+        </p>
     </main>
 
     <footer>
