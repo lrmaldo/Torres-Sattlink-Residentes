@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <style>
         body {
@@ -252,7 +253,9 @@
     </div>
 
     <script>
-        document.getElementById('contact-module').addEventListener('submit', function(e) {
+
+
+        document.querySelector('#contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             // Limpiar errores previos
@@ -261,6 +264,7 @@
             // Obtener los valores del formulario
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
+            const subject = document.getElementById('subject').value.trim();
             const message = document.getElementById('message').value.trim();
 
             // Validación
@@ -279,6 +283,11 @@
                 isValid = false;
             }
 
+            if (subject === '') {
+                document.getElementById('subjectError').textContent = 'Por favor, ingrese un asunto.';
+                isValid = false;
+            }
+
             if (message === '') {
                 document.getElementById('messageError').textContent = 'Por favor, ingrese un mensaje.';
                 isValid = false;
@@ -289,7 +298,7 @@
             // Mostrar indicador de carga
             document.getElementById('loading').style.display = 'block';
 
-            //proceso de enviar formulario
+            // Enviar formulario
             fetch('/enviar-email', {
                 method: 'POST',
                 headers: {
@@ -299,6 +308,7 @@
                 body: JSON.stringify({
                     name,
                     email,
+                    subject,
                     message
                 })
             }).then(response => response.json())
@@ -306,15 +316,14 @@
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('result').style.display = 'block';
                     document.getElementById('result').textContent = data.message;
+                })
+                .catch(error => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('result').textContent = 'Ocurrió un error al enviar el mensaje. Por favor, intente de nuevo.';
                 });
-            .catch(error => {
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('result').style.display = 'block';
-                document.getElementById('result').textContent = 'Ocurrió un error al enviar el mensaje. Por favor, intente de nuevo.';
-            })
-
-
         });
+
     </script>
 
     <footer>
