@@ -40,6 +40,6 @@ class HomeController extends Controller
             $message->to('info@sattlink.com')->subject('Contacto desde la web');
         });
 
-        return redirect('/contacto')->with('success', 'Correo enviado correctamente');
+        return response()->json(['success' => 'Email enviado correctamente']);
     }
 }

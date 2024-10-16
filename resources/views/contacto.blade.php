@@ -315,7 +315,7 @@
                 .then(data => {
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('result').style.display = 'block';
-                    document.getElementById('result').textContent = data.message;
+                    document.getElementById('result').textContent = data.success;
                 })
                 .catch(error => {
                     document.getElementById('loading').style.display = 'none';
