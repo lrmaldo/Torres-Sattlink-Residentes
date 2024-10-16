@@ -30,10 +30,10 @@ class HomeController extends Controller
 
     public function enviarEmail(Request $request)
     {
-        $nombre = $request->nombre;
+        $nombre = $request->name;
         $email = $request->email;
-        $asunto = $request->asunto;
-        $mensaje = $request->mensaje;
+        $asunto = 'Contacto desde la web '.date('d-m-Y');
+        $mensaje = $request->message;
         $data = array('nombre' => $nombre, 'email' => $email, 'asunto' => $asunto, 'mensaje' => $mensaje);
         Mail::send('emails.contacto', $data, function ($message) {
             $message->from('miappshop@sattlink.com', 'Sattlink Torres');

@@ -46,7 +46,7 @@
             padding: 2rem;
             margin-top: auto;
             color:white;
-           
+
         }
     </style>
 </head>
@@ -54,10 +54,10 @@
     <header>
         <img src="/images/Sattlink-2024-logo-blanco.png" alt="Logo de la empresa" class="logo">
         <nav>
-            <header> 
+            <header>
             <ul>
                 <li><a href="{{url('/')}}">Página principal</a></li>
-                
+
             </ul>
         </nav>
             </header>
@@ -246,7 +246,7 @@
             <div id="loading" class="loading">Procesando...</div>
             <div id="result"></div>
         </div>
-    
+
             </div>
         </div>
     </div>
@@ -254,10 +254,10 @@
     <script>
         document.getElementById('contact-module').addEventListener('submit', function(e) {
             e.preventDefault();
-            
+
             // Limpiar errores previos
             document.querySelectorAll('.error').forEach(el => el.textContent = '');
-            
+
             // Obtener los valores del formulario
             const name = document.getElementById('name').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -289,14 +289,31 @@
             // Mostrar indicador de carga
             document.getElementById('loading').style.display = 'block';
 
-            // Simulación de procesamiento del formulario
-            setTimeout(() => {
-                // Ocultar indicador de carga
+            //proceso de enviar formulario
+            fetch('/enviar-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    name,
+                    email,
+                    message
+                })
+            }).then(response => response.json())
+                .then(data => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('result').style.display = 'block';
+                    document.getElementById('result').textContent = data.message;
+                });
+            .catch(error => {
                 document.getElementById('loading').style.display = 'none';
+                document.getElementById('result').style.display = 'block';
+                document.getElementById('result').textContent = 'Ocurrió un error al enviar el mensaje. Por favor, intente de nuevo.';
+            })
 
-                // Limpiar el formulario
-                this.reset();
-            }, 2000); // Simula un retraso de 2 segundos para el procesamiento
+
         });
     </script>
 

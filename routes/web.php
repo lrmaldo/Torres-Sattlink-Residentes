@@ -30,6 +30,10 @@ Route::get('/contacto', function (){
 Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+/* post contacto email */
+Route::post('enviar-email',[App\Http\Controllers\HomeController::class,'enviarEmail'])->name('enviar-email');
+
 /* auth  */
 Route::middleware(['auth'])->group(function () {
 
