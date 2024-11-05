@@ -84,6 +84,7 @@
                     background-size: auto ; /* Ajusta la imagen al tamaño de la ventana */
                     background-position: center; /* Centra la imagen */
                     background-repeat: no-repeat; /* Evita que la imagen se repita */
+                    responsive: auto; 
                 }
                 h1 {
                     color: white; /* Color del texto */
