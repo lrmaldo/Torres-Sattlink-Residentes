@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bienvenido a Sattlink - Explora nuestros servicios y contáctanos para más información.">
+    <meta name="description"
+        content="Bienvenido a Sattlink - Explora nuestros servicios y contáctanos para más información.">
     <title>Página Principal - Sattlink</title>
     <style>
         :root {
@@ -98,8 +100,8 @@
         nav ul li a {
             text-decoration: none;
             color: var(--link-color);
-        
-            
+
+
         }
 
         nav ul li a:hover,
@@ -107,20 +109,19 @@
             opacity: 0.5;
         }
 
-        main {
+        /*  main {
             flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 6rem 2rem 2rem;
             background-image: url('https://images.unsplash.com/photo-1533664488202-6af66d26c44a?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             color: var(--text-color);
-        }
+        } */
 
         h1 {
             font-size: 2rem;
@@ -149,7 +150,7 @@
                 display: none;
             }
 
-            .nav-toggle:checked ~ nav {
+            .nav-toggle:checked~nav {
                 display: block;
             }
 
@@ -187,8 +188,31 @@
                 font-size: 2.25rem;
             }
         }
+
+        #fondo {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            /* Esto hará que el main ocupe toda la altura de la ventana */
+            overflow: hidden;
+        }
+
+        .main-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Esto hará que la imagen cubra todo el espacio */
+            object-position: center;
+            /* Esto centrará la imagen */
+        }
     </style>
 </head>
+
+
+
 <body>
     <header>
         <div class="header-content">
@@ -217,12 +241,16 @@
         </div>
     </header>
 
-    <main>
-        
+    <main id="fondo">
+
+        <img src="/images/telecomunicaciones.avif" alt="Torre de telecomunicaciones" class="main-image">
+
     </main>
 
     <footer>
         <p>&copy; 1997 - {{ date('Y') }} Derechos Reservados Sattlink.</p>
     </footer>
 </body>
+
+
 </html>
