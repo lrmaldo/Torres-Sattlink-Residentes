@@ -224,7 +224,7 @@
             <nav>
                 <ul>
                     <li><a href="/">Página principal</a></li>
-                    <li><a href="#servicios">Servicios</a></li>
+                   {{--  <li><a href="#servicios">Servicios</a></li> --}}
                     <li><a href="{{ route('contacto') }}">Contáctanos</a></li>
                     @if (Route::has('login'))
                         @auth
