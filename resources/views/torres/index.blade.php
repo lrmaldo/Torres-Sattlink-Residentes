@@ -64,10 +64,10 @@
                     </table>
                 </div>
 
-                <h2 class="mt-4">Rendimiento de la Red</h2>
+                {{-- <h2 class="mt-4">Rendimiento de la Red</h2>
                 <div class="bg-light p-3 rounded">
                     <p class="text-center text-muted">Gráfico de rendimiento (Placeholder)</p>
-                </div>
+                </div> --}}
             </div>
         </div>
         <script>

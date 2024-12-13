@@ -37,6 +37,8 @@ class StoreTorreRequest extends FormRequest
     {
         return [
             'nombre.required' => 'El nombre es requerido',
+            'nombre.string' => 'El nombre debe ser una cadena de texto',
+            'nombre.max' => 'El nombre no debe exceder los 255 caracteres',
             'latitud.required' => 'La latitud es requerida',
             'longitud.required' => 'La longitud es requerida',
             'comentarios.required' => 'Los comentarios son requeridos',

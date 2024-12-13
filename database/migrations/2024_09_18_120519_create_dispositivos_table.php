@@ -29,7 +29,7 @@ class CreateDispositivosTable extends Migration
             $table->text('img_url')->nullable();
             $table->text('comentario')->nullable();
             /* estado */
-            $table->string('estado')->nullable();
+            $table->string('estado')->nullable(); //activo, desactivado, mantenimiento
             $table->foreignId('torre_id')->nullable()->references('id')->on('torres')
             ->onDelete('cascade')
             ->onUpdate('cascade');

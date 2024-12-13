@@ -50,7 +50,7 @@ class UserController extends Controller
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->save();
-            return response()->json(['message' => 'User created successfully'], 200);
+            return response()->json(['message' => 'Usuario Creado Correctamente'], 200);
         }
         /* enviar los errores de validacion */
         return Response::json(['errors' => $validator->errors()], 422);
@@ -133,6 +133,7 @@ class UserController extends Controller
     {
         $users = DB::table('users')
             ->where('name', 'like', '%'.$search.'%')
+            ->orWhere('email', 'like', '%'.$search.'%')
             ->get();
         return response()->json($users);
     }

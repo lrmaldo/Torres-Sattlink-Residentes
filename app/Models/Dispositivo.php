@@ -26,6 +26,7 @@ class Dispositivo extends Model
         'torre_id',
         'radio_transmision',
         'estado',
+        'torre_id'
     ];
 
     public function torre()

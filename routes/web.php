@@ -37,8 +37,9 @@ Route::post('enviar-email',[App\Http\Controllers\HomeController::class,'enviarEm
 /* auth  */
 Route::middleware(['auth'])->group(function () {
 
-    /* ruta de edit user */
+    /* ruta de index create store update destroy */
    Route::resource('users', UserController::class);
+
 
    Route::resource('torres',TorreController::class);
    ## Route::resource('dispositivos',DispositivoController::class);

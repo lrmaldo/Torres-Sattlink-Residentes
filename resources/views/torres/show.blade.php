@@ -8,8 +8,8 @@
             max-height: 200px;
             object-fit: contain;
             display: flex;
-            justify-content: center; 
-            align-items: center; 
+            justify-content: center;
+            align-items: center;
         }
 
         .scrollable-cards {
@@ -20,7 +20,7 @@
         .bg-secondary {
             background-color: #dd6739 !important;
         }
-        
+
     </style>
 
 
@@ -63,7 +63,7 @@
 
 
             <div class="container mt-2">
-                <h2>Lista de Dispositivos</h2>
+                <h2>Lista de Dispositivos de la torre {{$torre->nombre}}</h2>
                 <a href="{{ route('dispositivos.create', $torre->id) }}" class="btn btn-info" id="addTowerBtn">
                     <i class="bi bi-plus-circle-fill me-2"></i>
                     Agregar Dispositivos
@@ -109,7 +109,7 @@
                         </div>
                         <div class="col-md-6">
                             <p><i class="bi bi-broadcast">&nbsp;&nbsp;</i><strong>Tipo:</strong> <span id="dispositivo-tipo"></span></p>
-                            <p><i class="bi bi-bookmark-star">&nbsp;&nbsp;</i><strong>Hostname:</strong> <span id="dispositivo-nombre"></span></p>    
+                            <p><i class="bi bi-bookmark-star">&nbsp;&nbsp;</i><strong>Hostname:</strong> <span id="dispositivo-nombre"></span></p>
                             <p><i class="bi bi-geo-alt-fill">&nbsp;&nbsp;</i><strong>Ubicación:</strong> <a href="" id="dispositivo-ubicacion" target="_blank">Ver
                                     en
                                     Google Maps</a></p>

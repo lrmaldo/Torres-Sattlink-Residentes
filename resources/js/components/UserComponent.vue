@@ -214,6 +214,7 @@
 
 <script>
 import { Modal } from "bootstrap";
+import { Swal } from "sweetalert2/dist/sweetalert2";
 
 export default {
     data() {
@@ -241,13 +242,7 @@ export default {
         openAddModal() {
             this.currentUser = { name: "", email: "", role: "User" };
             this.isEditing = false;
-            document.getElementById("error").innerText = "";
-            document.getElementById("email").classList.remove("is-invalid");
-            document.getElementById("name").classList.remove("is-invalid");
-            document.getElementById("password").classList.remove("is-invalid");
-            document
-                .getElementById("password_confirmation")
-                .classList.remove("is-invalid");
+            this.resetForm();
             this.showModal();
         },
         openEditModal(user) {
@@ -278,6 +273,14 @@ export default {
             axios
                 .post("/users", this.currentUser)
                 .then((response) => {
+                    if(response.code == 200){
+                     Swal.fire({
+                        icon: "success",
+                        title: response.data.message,
+                        showConfirmButton: false,
+                        timer: 1500,
+                    });
+                    }
                     this.getUsers();
 
                     this.resetForm();
@@ -315,12 +318,12 @@ export default {
                     /* cerrar el modal */
                     /* actualizar la tabla de users */
                     this.getUsers();
-                    Swal.fire({
+                  /*   Swal.fire({
                         icon: "success",
                         title: "Usuario agregado",
                         showConfirmButton: false,
                         timer: 1500,
-                    });
+                    }); */
                 });
         },
         updateUser() {
@@ -328,7 +331,7 @@ export default {
             this.isLoading = true; // Mostrar spinner al iniciar la solicitud
             axios
                 .put(`/users/${this.currentUser.id}`, this.currentUser)
-                .then(() => {
+                .then((response) => {
                     this.getUsers();
                     this.resetForm();
                     Swal.fire({
